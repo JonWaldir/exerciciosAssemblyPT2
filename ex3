@@ -1,0 +1,43 @@
+.data
+	msg1: .asciiz "Digite um valor: "
+	msg2: .asciiz"Digite outro valor; "
+	
+.text
+main:
+	li $v0 , 4
+	la $a0 , msg1
+	syscall
+	
+	li $v0, 5
+	syscall
+	add $t0, $v0, 0
+	
+	li $v0 , 4
+	la $a0 , msg2
+	syscall
+	
+	li $v0, 5
+	syscall
+	add $t1, $v0, 0
+	
+	bgt  $t0 , $t1 faixa1 # t0 e o maior
+	j faixa2
+	
+	faixa1:
+	sub $t2, $t0, $t1 # t2 e a diferenca
+	j final
+	
+	faixa2:
+	sub $t2 , $t1, $t0
+	j final
+	
+	final:
+	li $v0, 4
+	la $a0, msg2
+	syscall
+	
+	li $v0 , 1
+	add $a0, $t2, 0
+	syscall
+	
+	
